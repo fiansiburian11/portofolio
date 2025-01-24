@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
+import AOS from "aos";
 
 const projectsData = [
   {
@@ -79,12 +80,20 @@ const ProjectsSection = () => {
     animate: { y: 0, opacity: 1 },
   };
 
+useEffect(() => {
+    // Inisialisasi AOS untuk mengaktifkan animasi scroll
+    AOS.init({
+      duration: 800, // Durasi animasi dalam milidetik
+      once: false, // Animasi hanya berjalan satu kali saat scroll pertama
+    });
+  }, []);
+
   return (
     <section id="projects">
-      <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
+      <h2 data-aos="fade-up" className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
         My Projects
       </h2>
-      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
+      <div data-aos="fade-up" className="text-white flex flex-row justify-center items-center gap-2 py-6">
         <ProjectTag
           onClick={handleTagChange}
           name="All"

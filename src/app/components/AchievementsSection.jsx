@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
+import AOS from "aos"
 
 const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), { ssr: false });
 
@@ -29,8 +30,17 @@ const achievementsList = [
 ];
 
 const AchievementsSection = () => {
+
+  //insialisasi library aos animation
+  useEffect(()=>{
+    AOS.init({
+      duration: 800,
+      once: false,
+    })
+  }, [])
+
   return (
-    <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16 shadow-md shadow-[#C17FF5] rounded-xl gap-4">
+    <div data-aos="fade-up" className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16 shadow-md shadow-[#C17FF5] rounded-xl gap-4">
       <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between hover:shadow-md hover:shadow-[#C17FF5]">
         {achievementsList.map((achievement) => (
           <div key={achievement.index} className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0">

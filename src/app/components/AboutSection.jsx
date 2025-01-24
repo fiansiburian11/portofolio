@@ -1,8 +1,10 @@
 "use client";
-import React, { useTransition, useState } from "react";
+import React, { useTransition, useState, useEffect } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TAB_DATA = [
   {
@@ -64,16 +66,26 @@ const AboutSection = () => {
     });
   };
 
+  useEffect(() => {
+    // Inisialisasi AOS untuk mengaktifkan animasi scroll
+    AOS.init({
+      duration: 800, // Durasi animasi dalam milidetik
+      once: false, // Animasi hanya berjalan satu kali saat scroll pertama
+    });
+  }, []);
+
   return (
-    <section className="text-white" id="about">
+    <section animate={{ x: 100 }} transition={{ duration: 0.3, delay: 1, ease: "linear" }} className="text-white" id="about">
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-        <Image src="/images/about-image.webp" alt="about-image" width={400} height={400} className="w-full h-full"  />
+        <Image data-aos="fade-up-right" src="/images/about-image.webp" alt="about-image" width={400} height={400} className="w-full h-full" />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
-          <p className="text-base lg:text-lg">
+          <h2 data-aos="fade-up-left" className="text-4xl font-bold text-white mb-4">
+            About Me
+          </h2>
+          <p data-aos="fade-up-left" className="text-base lg:text-lg">
             Saya adalah seorang Front-End Web Developer dengan hasrat untuk menciptakan antarmuka web yang interaktif, responsif, dan berfokus pada pengalaman pengguna. Saya memiliki pengalaman yang cukup baik.
           </p>
-          <div className="flex flex-row justify-start mt-8">
+          <div data-aos="fade-up-left" className="flex flex-row justify-start mt-8">
             <TabButton selectTab={() => handleTabChange("skills")} active={tab === "skills"}>
               {" "}
               Skills{" "}
@@ -87,7 +99,7 @@ const AboutSection = () => {
               Certifications{" "}
             </TabButton>
           </div>
-          <div className="mt-8">{TAB_DATA.find((t) => t.id === tab).content}</div>
+          <div data-aos="fade-up-left" className="mt-8">{TAB_DATA.find((t) => t.id === tab).content}</div>
         </div>
       </div>
     </section>
